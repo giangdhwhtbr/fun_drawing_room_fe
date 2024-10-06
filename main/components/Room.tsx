@@ -28,7 +28,7 @@ export default function FunnyRoom({ user, room }: IFunnyRoomProps) {
           </div>
           <DrawingBoard />
           <div className="w-[300px] flex flex-col gap-3">
-            <ChatContainer />
+            <ChatContainer room={room} user={user} />
           </div>
         </div>
       </div>

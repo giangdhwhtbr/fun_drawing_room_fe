@@ -1,7 +1,7 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ResetPasswordFormSchema } from "../libs/auth.definitions";
+import { ResetPasswordFormSchema } from "../app/libs/auth.definitions";
 
 interface IResetPasswordFormProps {
   handleResetPassword: (data: {

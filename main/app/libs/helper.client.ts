@@ -35,7 +35,6 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
 
         return data;
     } catch (error: any) {
-        console.error(error)
         if (error.message !== "Unauthorized") {
             throw error;
         }

@@ -9,3 +9,11 @@ export function addQueryParamsToPath(
 
   return `${path}${queryString ? '?' + queryString : ''}`;
 }
+
+
+export function generateRandomUserProfile() {
+  const randomId = Math.floor(Math.random() * 100) + 1;
+  const gender = Math.random() < 0.5 ? 'men' : 'women';
+  
+  return `https://randomuser.me/api/portraits/${gender}/${randomId}.jpg`;
+}

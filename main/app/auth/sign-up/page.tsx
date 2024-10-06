@@ -1,6 +1,6 @@
 'use client';
 
-import SignUpForm from "@/app/components/SignUpForm";
+import SignUpForm from "@/components/SignUpForm";
 
 // `app/page.tsx` is the UI for the `/` URL
 export default function Page() {

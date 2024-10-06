@@ -19,8 +19,8 @@ export async function signIn(state: SignInFormState, formData: FormData) {
         });
         const data = await response.json()
         if (response.ok) {
-            const { accessToken } = data;
-            await createSession(accessToken);
+            const { accessToken, user } = data;
+            await createSession(accessToken, user);
            redirectUrl ='/';
         } else {
             return {

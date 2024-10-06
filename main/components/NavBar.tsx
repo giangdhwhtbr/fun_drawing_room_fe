@@ -1,14 +1,15 @@
 "use client";
+import { generateRandomUserProfile } from "@/app/libs/helper.shared";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
 // Profile Dropdown
-const ProfileDropDown = (props: any) => {
+const ProfileDropDown = ({ user }: { user: User }) => {
   const [state, setState] = useState(false);
   const profileRef = useRef<any>();
   const navigation = [{ title: "Log out", path: "/auth/sign-out" }];
   return (
-    <div className={`relative ${props.class}`}>
+    <div className={`relative`}>
       <div className="flex items-center space-x-4">
         <button
           ref={profileRef}
@@ -16,16 +17,16 @@ const ProfileDropDown = (props: any) => {
           onClick={() => setState(!state)}
         >
           <Image
-            src="https://randomuser.me/api/portraits/men/46.jpg"
+            src={generateRandomUserProfile()}
             className="w-full h-full rounded-full"
             width="40"
             height="40"
             alt={""}
           />
         </button>
-        <div className="lg:hidden">
-          <span className="block">Micheal John</span>
-          <span className="block text-sm text-gray-500">john@gmail.com</span>
+        <div className="lg">
+          <span className="block">{user.name}</span>
+          <span className="block text-sm text-gray-500">{user.email}</span>
         </div>
       </div>
       <ul
@@ -49,7 +50,7 @@ const ProfileDropDown = (props: any) => {
   );
 };
 
-export default function NavBar() {
+export default function NavBar({ user }: { user: User }) {
   return (
     <nav className="bg-white border-b">
       <div className="flex items-center space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8">
@@ -58,7 +59,7 @@ export default function NavBar() {
         </div>
         <div className="flex-1 flex items-center justify-between">
           <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-6">
-            <ProfileDropDown class="hidden lg:block" />
+            <ProfileDropDown user={user} />
           </div>
         </div>
       </div>

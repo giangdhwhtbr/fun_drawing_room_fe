@@ -1,7 +1,7 @@
 "use client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SignupFormSchema } from "../libs/auth.definitions";
+import { SignupFormSchema } from "../app/libs/auth.definitions";
 
 
 type SignUpFormInputs = {

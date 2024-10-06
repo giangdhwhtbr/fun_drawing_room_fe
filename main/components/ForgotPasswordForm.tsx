@@ -1,7 +1,7 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ForgotPasswordFormSchema } from "../libs/auth.definitions";
+import { ForgotPasswordFormSchema } from "../app/libs/auth.definitions";
 
 type ForgotPasswordFormInputs = {
   email: string;

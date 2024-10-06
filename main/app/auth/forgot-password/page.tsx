@@ -1,7 +1,7 @@
 // `app/page.tsx` is the UI for the `/` URL
 "use client";
 
-import ForgotPasswordForm from "@/app/components/ForgotPasswordForm";
+import ForgotPasswordForm from "@/components/ForgotPasswordForm";
 
 export default function Page() {
   const handleForgotPassword = async (data: any) => {

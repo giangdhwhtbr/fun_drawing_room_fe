@@ -17,7 +17,7 @@ export default function RoomSearch() {
     (async () => {
       setLoading(true);
       try {
-        const resp = await fetch(`/api/rooms/${keywords}`);
+        const resp = await fetch(`/api/rooms/search/${keywords}`);
         const data = await resp.json();
         setSuggestions(data);
       } catch (error) {

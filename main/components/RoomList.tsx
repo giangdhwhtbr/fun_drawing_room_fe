@@ -1,19 +1,23 @@
 "use client";
 import { Button, Table, TableColumnType } from "antd";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
+import { addQueryParamsToPath } from "../app/libs/helper.shared";
 import Alert from "./Alert";
 import RoomCreate from "./RoomCreate";
 import RoomSearch from "./RoomSearch";
-import { useRouter, useSearchParams } from "next/navigation";
-import { addQueryParamsToPath } from "../libs/helper.shared";
 
 interface IRoomListProps {
   // Props definition
+  user?: User;
   data: Room[];
   totalRecords: number;
   errorMessage?: string;
 }
 
 export default function RoomList({
+  user,
   data,
   totalRecords,
   errorMessage,
@@ -22,8 +26,30 @@ export default function RoomList({
   const params = useSearchParams();
 
   const pageSize = params.get("limit") ? Number(params.get("limit")) : 20;
+  const offset = params.get("offset") ? Number(params.get("offset")) : 0;
 
-  const currentPage = Math.ceil(totalRecords! / pageSize) || 1;
+  const currentPage = offset / pageSize + 1;
+
+  const onChangePage = (page: number) => {
+    const url = addQueryParamsToPath("/rooms", {
+      limit: pageSize,
+      offset: (page - 1) * pageSize,
+    });
+    router.push(url);
+  };
+
+  const joinRoom = async (room: Room) => {
+    const resp = await fetch(`/api/rooms/join/${room.id}`, {
+      method: "GET",
+    });
+    const respJson = await resp.json();
+    if (respJson.success) {
+      router.push(`/rooms/${room.uuid}`);
+    } else {
+      toast.error(respJson.message);
+      console.error("Failed to join room", respJson);
+    }
+  }
 
   const columns: TableColumnType[] = [
     {
@@ -41,21 +67,13 @@ export default function RoomList({
     {
       title: "",
       render: (record: Room) => (
-        <div className="max-w-5 flex flex-row gap-5">
-          <Button type="link">Access</Button>
-          <Button type="primary">Join</Button>
+        <div className="flex flex-row items-center gap-5">
+          {record.userIds.includes(user!.id) && <Link href={`/rooms/${record.uuid}`} >Access</Link>}
+          {!record.userIds.includes(user!.id) &&<Button type="primary" onClick={() => joinRoom(record)}>Join</Button>}
         </div>
       )
     }
   ];
-
-  const onChangePage = (page: number) => {
-    const url = addQueryParamsToPath("/rooms", {
-      limit: pageSize,
-      offset: (page - 1) * pageSize,
-    });
-    router.push(url);
-  };
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -76,7 +94,7 @@ export default function RoomList({
           columns={columns}
           rowKey={"id"}
           pagination={{
-            position: ["bottomLeft"],
+            position: ["topRight", 'bottomRight'],
             total: totalRecords!,
             pageSize,
             defaultCurrent: 1,

@@ -45,3 +45,28 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
         }
     }
 }
+
+
+export async function fetchPublicRoute(url: string, options: RequestInit = {}) {
+    try {
+        const resp = await fetch(`${API_BASE_URL}${url}`, {
+            ...options,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            cache: "no-cache",
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+            throw new Error(data.message ? data.message : "Unexpected error");
+        }
+
+        return data;
+
+    } catch (error) {
+        throw error;
+    }
+    
+}

@@ -31,7 +31,6 @@ const SignUpForm = ({ handleSignUp }: ISignUpFormProps) => {
   });
 
   const onSubmit: SubmitHandler<SignUpFormInputs> = (data) => {
-    console.log(data);
     handleSignUp(data);
   };
 

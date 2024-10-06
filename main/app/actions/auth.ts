@@ -24,7 +24,7 @@ export async function signIn(state: SignInFormState, formData: FormData) {
            redirectUrl ='/';
         } else {
             return {
-                message: 'Email or password is incorrect',
+                message: data.message ? data.message : 'Email or password is incorrect',
             }
         }
     } catch (error: any) {

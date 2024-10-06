@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { decodeJwt } from 'jose'
 
 // 1. Specify protected and public routes
-const publicRoutes = ['/auth/sign-in', '/auth/sign-up', '/']
+const publicRoutes = ['/auth/sign-in', '/auth/sign-up', '/auth/activate', '/']
 
 export default async function middleware(req: NextRequest) {
     const path = req.nextUrl.pathname
